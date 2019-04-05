@@ -93,7 +93,7 @@ namespace Jackson.Photon
         #endregion
 
 
-        #region MonoBehaviourPunCallbacks Callbacks
+            #region MonoBehaviourPunCallbacks Callbacks
 
         public override void OnConnectedToMaster()
         {
