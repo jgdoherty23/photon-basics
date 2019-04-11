@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 
 namespace PhotonLearning
 {
-    public class PlayerAnimatorManager : MonoBehaviour
+    public class PlayerAnimatorManager : MonoBehaviourPun
     {
         #region Private Fields
 
@@ -28,9 +29,16 @@ namespace PhotonLearning
             }
         }
 
-        // Update is called once per frame
         void Update()
         {
+            // IsConnected condition allows for non-networked testing
+            if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+            {
+                return;
+            }
+
+            ////////// INSTANCE CONTROLLED BY CLIENT ONLY //////////
+
             if (!animator)
             {
                 return;
@@ -56,6 +64,8 @@ namespace PhotonLearning
             }
             animator.SetFloat("Speed", h * h + v * v);
             animator.SetFloat("Direction", h, directionDampTime, Time.deltaTime);
+
+            ////////////////////////////////////////////////////////
         }
 
         #endregion

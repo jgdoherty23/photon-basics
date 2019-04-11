@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Pun.Demo.PunBasics;
 
 
 namespace PhotonLearning
@@ -10,8 +11,29 @@ namespace PhotonLearning
     /// Player manager.
     /// Handles fire Input and Beams.
     /// </summary>
-    public class PlayerManager : MonoBehaviourPunCallbacks
+    public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
+        #region IPunObservable implementation
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting) // can only stream when controlling client
+            {
+                // We own this player: send the others our data
+                stream.SendNext(IsFiring);
+                stream.SendNext(Health);
+            }
+            else
+            {
+                // Network player, receive data
+                this.IsFiring = (bool)stream.ReceiveNext();
+                this.Health = (float)stream.ReceiveNext();
+            }
+        }
+
+        #endregion
+
+
         #region Public Fields
 
         [Tooltip("The current Health of our player")]
@@ -48,11 +70,40 @@ namespace PhotonLearning
         }
 
         /// <summary>
+        /// MonoBehaviour method called on GameObject by Unity during initialization phase.
+        /// </summary>
+        void Start()
+        {
+            CameraWork _cameraWork = GetComponent<CameraWork>();
+
+
+            if (_cameraWork != null)
+            {
+                if (photonView.IsMine)
+                {
+                    _cameraWork.OnStartFollowing();
+                }
+            }
+            else
+            {
+                Debug.LogError("<Color=Red><a>Missing</a></Color> CameraWork Component on playerPrefab.", this);
+            }
+        }
+
+
+        /// <summary>
         /// MonoBehaviour method called on GameObject by Unity on every frame.
         /// </summary>
         void Update()
         {
-            ProcessInputs();
+            if (photonView.IsMine)
+            {
+                ////////// INSTANCE CONTROLLED BY CLIENT ONLY //////////
+
+                ProcessInputs();
+
+                ////////////////////////////////////////////////////////
+            }
 
             if (Health <= 0f)
             {
@@ -76,7 +127,11 @@ namespace PhotonLearning
         {
             if (!photonView.IsMine)
             {
+                ////////// INSTANCE CONTROLLED BY CLIENT ONLY //////////
+
                 return;
+
+                ////////////////////////////////////////////////////////
             }
             // We are only interested in Beamers
             // we should be using tags but for the sake of distribution, let's simply check by name.
@@ -97,7 +152,11 @@ namespace PhotonLearning
             // we dont' do anything if we are not the local player.
             if (!photonView.IsMine)
             {
+                ////////// INSTANCE CONTROLLED BY CLIENT ONLY //////////
+
                 return;
+
+                ////////////////////////////////////////////////////////
             }
             // We are only interested in Beamers
             // we should be using tags but for the sake of distribution, let's simply check by name.
