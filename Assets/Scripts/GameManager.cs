@@ -6,10 +6,17 @@ using Photon.Pun;
 using Photon.Realtime;
 
 
-namespace Jackson.Photon
+namespace PhotonLearning
 {
     public class GameManager : MonoBehaviourPunCallbacks
     {
+        public static GameManager Instance;
+
+        void Start()
+        {
+            Instance = this;
+        }
+
         #region Photon Callbacks
 
         public override void OnPlayerEnteredRoom(Player other)
@@ -17,8 +24,10 @@ namespace Jackson.Photon
             Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
             if (PhotonNetwork.IsMasterClient)
             {
+                ////////// MASTER CLIENT ONLY //////////
                 Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
                 LoadArena();
+                ///////////////////////////////////////
             }
         }
 
@@ -27,8 +36,10 @@ namespace Jackson.Photon
             Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
             if (PhotonNetwork.IsMasterClient)
             {
+                ////////// MASTER CLIENT ONLY //////////
                 Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
                 LoadArena();
+                ///////////////////////////////////////
             }
         }
 
@@ -55,11 +66,16 @@ namespace Jackson.Photon
 
         #region Private Methods
 
+        /// <summary>
+        /// Loads level based on player count. Should only be called by master client.
+        /// </summary>
         void LoadArena()
         {
             if (!PhotonNetwork.IsMasterClient)
             {
+                ////////// *NON* MASTER CLIENT ONLY //////////
                 Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
+                //////////////////////////////////////////////
             }
             Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
             PhotonNetwork.LoadLevel("Room for " + PhotonNetwork.CurrentRoom.PlayerCount); // convention

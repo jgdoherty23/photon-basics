@@ -5,7 +5,7 @@ using Photon.Realtime;
 using System.Collections;
 
 
-namespace Jackson.Photon
+namespace PhotonLearning
 {
     /// <summary>
     /// Player name input field. Let the user input his name, will appear above the player in the game.

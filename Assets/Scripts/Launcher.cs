@@ -3,7 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 
 
-namespace Jackson.Photon
+namespace PhotonLearning
 {
     public class Launcher : MonoBehaviourPunCallbacks
     {
@@ -17,6 +17,7 @@ namespace Jackson.Photon
         private GameObject progressLabel;
 
         #endregion
+
 
         #region Private Serializable Fields
 
@@ -56,6 +57,7 @@ namespace Jackson.Photon
         {
             // #Critical
             // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
+            // *Jackson Note*: who the master client is is managed by Photon. If the master client leaves a room, Photon chooses a new master.
             PhotonNetwork.AutomaticallySyncScene = true;
         }
 
