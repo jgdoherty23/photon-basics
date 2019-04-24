@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 1229752784838674868}
   - component: {fileID: 1946307637482873850}
   - component: {fileID: 225378740337885544}
+  - component: {fileID: 3255572120935384002}
   m_Layer: 0
   m_Name: My Robot Kyle
   m_TagString: Untagged
@@ -174,6 +175,7 @@ MonoBehaviour:
   - {fileID: 1946307637482873850}
   - {fileID: 225378740337885544}
   - {fileID: 8174474050243345314}
+  - {fileID: 3255572120935384002}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -224,6 +226,21 @@ MonoBehaviour:
     LayerIndex: 0
   - SynchronizeType: 0
     LayerIndex: 1
+--- !u!114 &3255572120935384002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9160341491381664179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872da8f00f78bae46bf90a82611e2339, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  otherGameObject: {fileID: 9160341492432177934}
+  syncGameObjectActive: 1
+  syncRendererEnabled: 1
 --- !u!1 &9160341491394696081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,8 +1186,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9160341492432177935}
   - component: {fileID: 9160341492432177932}
-  - component: {fileID: 4209262683790216971}
-  - component: {fileID: 8107167484557741454}
   m_Layer: 0
   m_Name: Robot2
   m_TagString: Untagged
@@ -1289,41 +1304,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.27024603, y: -0.041899905, z: -0.000000059604645}
     m_Extent: {x: 0.95254505, y: 0.23127724, z: 0.6514181}
   m_DirtyAABB: 0
---- !u!114 &4209262683790216971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9160341492432177934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 8107167484557741454}
-  viewIdField: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &8107167484557741454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9160341492432177934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 872da8f00f78bae46bf90a82611e2339, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncRendererEnabled: 1
 --- !u!1 &9160341492453495807
 GameObject:
   m_ObjectHideFlags: 0

@@ -259,8 +259,10 @@ namespace PhotonLearning
             // #Jackson test: turn child renderer off/on
             if (Input.GetButtonDown("Jump"))
             {
-                Renderer renderer = transform.GetChild(0).GetComponent<Renderer>();
-                renderer.enabled = !renderer.enabled;
+                //Renderer renderer = transform.GetChild(0).GetComponent<Renderer>();
+                //renderer.enabled = !renderer.enabled;
+                GameObject childObj = transform.GetChild(0).gameObject;
+                childObj.SetActive(!childObj.activeSelf);
             }
         }
 
