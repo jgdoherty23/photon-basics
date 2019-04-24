@@ -256,6 +256,12 @@ namespace PhotonLearning
                     IsFiring = false;
                 }
             }
+            // #Jackson test: turn child renderer off/on
+            if (Input.GetButtonDown("Jump"))
+            {
+                Renderer renderer = transform.GetChild(0).GetComponent<Renderer>();
+                renderer.enabled = !renderer.enabled;
+            }
         }
 
 #if UNITY_5_4_OR_NEWER
